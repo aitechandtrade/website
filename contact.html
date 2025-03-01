@@ -19,12 +19,14 @@
     </header>
     <section class="contact-page">
         <h2>Contact Us</h2>
-        <p>Have questions, feedback, or just want to say hello? We'd love to hear from you!</p> <div class="contact-form">
+        <p>Have questions, feedback, or just want to say hello? We'd love to hear from you!</p> 
+        <div class="contact-form">
             <h3>Send us a message</h3>
-            <form>
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <textarea placeholder="Your Message" required></textarea>
+            <form id="contact-form"> 
+                <input type="text" name="name" placeholder="Your Name" required> 
+                <input type="email" name="to" placeholder="Your Email" required> 
+                <input type="text" name="subject" placeholder="Subject" required>
+                <textarea name="message" placeholder="Your Message" required></textarea>
                 <button type="submit" class="btn">Send</button>
             </form>
         </div>
@@ -32,5 +34,35 @@
     <footer>
         <p>&copy; 2025 A & I Tech & Trade. All rights reserved.</p>
     </footer>
+
+    <script>
+        const form = document.getElementById('contact-form');
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent default form submission
+
+            // Gather form data
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData); 
+
+            try {
+                // Send data to Netlify Function
+                const response = await fetch('/.netlify/functions/send-email', { 
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data), 
+                });
+
+                // Handle response
+                const result = await response.json();
+                alert(result.message || result.error); 
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred.');
+            }
+        });
+    </script>
+
 </body>
 </html>

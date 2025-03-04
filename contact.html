@@ -22,13 +22,26 @@
         <p>Have questions, feedback, or just want to say hello? We'd love to hear from you!</p> 
         <div class="contact-form">
             <h3>Send us a message</h3>
-            <form id="contact-form" data-netlify="true"> 
-                <input type="text" name="name" placeholder="Your Name" required> 
-                <input type="email" name="email" placeholder="Your Email" required> 
-                <input type="text" name="subject" placeholder="Subject" required>
-                <textarea name="message" placeholder="Your Message" required></textarea>
-                <button type="submit" class="btn">Send</button>
-            </form>
+            <form name="contact" method="POST" data-netlify="true">
+  <p>
+    <label>Your Name: <input type="text" name="name" /></label>
+  </p>
+  <p>
+    <label>Your Email: <input type="email" name="email" /></label>
+  </p>
+  <p>
+    <label>Your Role: <select name="role[]" multiple>
+      <option value="leader">Leader</option>
+      <option value="follower">Follower</option>
+    </select></label>
+  </p>
+  <p>
+    <label>Message: <textarea name="message"></textarea></label>
+  </p>
+  <p>
+    <button type="submit">Send</button>
+  </p>
+</form>
         </div>
     </section>
     <footer>
